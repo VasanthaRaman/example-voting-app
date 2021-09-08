@@ -1,0 +1,91 @@
+version: '3.3'
+
+services:
+
+  redis:
+    image: redis
+    network_mode: bridge
+    restart: always
+    container_name: redis
+ #   ports:
+ #     - "6379:6379"
+ #   healthcheck:
+ #     test: ["CMD", "curl", "-f", "http://localhost:6379"]
+    
+  db:
+    image: postgres:9.4
+    network_mode: bridge
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+  #    POSTGRES_USER: "postgres"
+  #    POSTGRES_PASSWORD: "db"
+  #    POSTGRES_DB: "postgres1"
+  #  volumes:
+  #    - db_volume:/var/lib/postgresql/data 
+  #  ports:
+  #    - "5432:5432"
+ #   healthcheck:
+ #     test: ["CMD", "curl", "-f", "http://localhost:5432"]
+    depends_on:
+      - redis
+    links:
+      - "redis:redis"
+  
+  pythonFlask: 
+    network_mode: bridge
+    restart: always
+    container_name: pythonFlask
+    image: pythonflask
+    build:
+      context: vote/
+      dockerfile: Dockerfile
+ #   volumes:
+ #     - "python_volume:/var/lib/flask"   
+    ports:
+      - "9002:80"
+    depends_on:
+      - redis
+    links:
+      - "redis:redis"
+      
+      
+  nodeJS: 
+    network_mode: bridge
+    restart: always
+    container_name: nodeJS
+    image: nodejs
+    build:
+      context: result/
+      dockerfile: Dockerfile
+#    volumes:
+#      - "NodeJS_volume:/var/lib/Node"   
+    ports:
+      - "9003:80"
+    depends_on:
+      - redis
+      - db
+    #command: ["./wait-for-it.sh", "postgres:5432", "redisQueue:6379"]
+    #command: "sleep 10"
+   # command: sh -c "dockerize -wait tcp://postgres:5432 -timeout 300s -wait-retry-interval 30s"
+    links:
+      - "redis:redis"
+      - "db:db"
+    
+  worker:
+    network_mode: bridge
+    restart: always
+    container_name: worker
+    image: workernet
+    build:
+      context: worker/
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - redis
+    
+    links:
+      - "redis:redis"
+      - "db:db"
+      
