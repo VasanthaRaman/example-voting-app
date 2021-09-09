@@ -18,5 +18,12 @@ pipeline{
 			 	sh 'docker-compose up -d'
 			}
 		}
+		stage('Mvn package'){
+			steps{
+			 	sh 'cd worker/'
+			 	sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+			}
+		}
+		
 	}
 }
