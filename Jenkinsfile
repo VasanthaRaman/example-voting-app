@@ -22,6 +22,7 @@ pipeline{
 			steps{
 			 	dir('worker'){
 			 	sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+			 	sh 'mvn release:prepare'
 			 	}
 			}
 		}
