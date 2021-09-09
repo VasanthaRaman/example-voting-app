@@ -21,6 +21,7 @@ pipeline{
 		stage('Mvn package'){
 			steps{
 			 	sh 'cd worker/'
+			 	sh 'ls'
 			 	sh 'mvn -Dmaven.test.failure.ignore=true clean package'
 			}
 		}
