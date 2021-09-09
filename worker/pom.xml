@@ -6,14 +6,15 @@
   <groupId>worker</groupId>
   <artifactId>worker</artifactId>
   <packaging>jar</packaging>
-  <name>spring-mvc-maven Maven Webapp</name>
   <version>2.0-SNAPSHOT</version>
+  <name>example-vote-app</name>
+  
 
 <scm>
 		<url>https://github.com/VasanthaRaman/example-voting-app.git</url>
 		<connection>scm:git:https://github.com/VasanthaRaman/example-voting-app.git</connection>
 		<developerConnection>scm:git:https://github.com/VasanthaRaman/example-voting-app.git</developerConnection>
-		<tag>example-voting-app-1</tag>
+		<tag>example-voting-app-1.0</tag>
 </scm>
 
   <dependencies>
@@ -87,6 +88,16 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+		 <groupId>org.apache.maven.release</groupId>
+    		<artifactId>maven-release-manager</artifactId>
+    		<version>3.0.0-M4</version>
+	</plugin>
+	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-deploy-plugin</artifactId>
+    		<version>3.0.0-M1</version>
+	</plugin>
     </plugins>
   </build>
 </project>
