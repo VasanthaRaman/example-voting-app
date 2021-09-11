@@ -1,0 +1,77 @@
+---
+- name: Running minikube
+  hosts: azure
+
+  pre_tasks:
+    
+    - name: Check Minikube's status
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+    
+    - name: Start Minikube if required
+      command: minikube start
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+      
+    - name: Copy image tars
+      copy:
+        src: tars/
+        dest: .
+        force: yes
+
+    - name: Load images
+      command: ./loadScript.sh
+      
+    - name: Copy Deployment files
+      copy:
+        src: kubeDepFiles/
+        dest: .
+  tasks:
+
+    - name: Deploying Redis
+      command: kubectl apply -f redis-deployment.yml
+      register: depl_output1
+      changed_when: " 'unchanged' not in depl_output1.stdout"
+    
+    - name: Deploying Postgres
+      command: kubectl apply -f postgres-deployment.yml
+      register: depl_output2
+      changed_when: " 'unchanged' not in depl_output2.stdout"
+
+
+    - name: Deploying Python App  
+      command: kubectl apply -f vote-app-deployment.yml
+      register: depl_output3
+      changed_when: " 'unchanged' not in depl_output3.stdout"
+      
+    - name: Deploying Node result App
+      command: kubectl apply -f result-app-deployment.yml
+      register: depl_output4
+      changed_when: " 'unchanged' not in depl_output4.stdout"
+
+      
+    - name: Deploying Worker App
+      command: kubectl apply -f worker-app-deployment.yml
+      register: depl_output5
+      changed_when: " 'unchanged' not in depl_output5.stdout"
+      
+    - name: get pod for vote
+      command: kubectl get pods -l=app=vote -o=name
+      register: votePod
+      
+    - name: get pod for result
+      command: kubectl get pods -l=app=result -o=name
+      register: resultPod
+      
+    - name: port forward for vote app
+      command:  kubectl port-forward --address 0.0.0.0 {{votePod.stdout}}  8092:80 
+      async: 86400
+      poll: 0
+      
+    - name: port forward for result app
+      command:  kubectl port-forward --address 0.0.0.0 {{resultPod.stdout}}  8093:80
+      async: 86400
+      poll: 0
+      
+        

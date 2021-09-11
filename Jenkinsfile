@@ -1,30 +1,35 @@
 pipeline{
 	agent any
-	
 	stages{
-		stage('Checkout'){
+		stage('Git checkout'){
 			steps{
-			git 'https://github.com/VasanthaRaman/example-voting-app.git'
+				git checkout 'https://github.com/VasanthaRaman/example-voting-app.git'
 			}
 		}
-		stage('Remove existing containers'){
+		stage('Build docker images'){
 			steps{
-			 	sh 'docker rm -f nodeJS worker db redis pythonFlask'
+				sh 'docker-compose build'
 			}
 		}
-		stage('Docker compose call'){
+		stage('Copy built docker images'){
 			steps{
-			 	sh 'docker-compose build'
-			 	sh 'docker-compose up -d'
+				sh './savImgTar.sh'
 			}
 		}
-		stage('Mvn package'){
+		stage('Download minikube and kubectl packages'){
 			steps{
-			 	dir('worker'){
-			 	sh 'mvn -Dmaven.test.failure.ignore=true clean package'
-			 	}
+				sh 'ansible-playbook docker-compose.yml -i hosts'
+			}
+		}	
+		stage('Download minikube and kubectl packages'){
+			steps{
+				sh 'ansible-playbook minikube.yml -i hosts'
 			}
 		}
-		
+		stage('Start minikube and apply deployments'){
+			steps{
+				sh 'ansible-playbook ansible-minikube.yml -i hosts'
+			}
+		}
 	}
 }

@@ -1,0 +1,75 @@
+---
+- name: Install Docker
+  hosts: azure
+  become: yes
+  vars:
+    CTOP_VERSION: "0.7.3"
+    DOCKER_COMPOSE_VERSION: "1.25.1"
+    DOCKER_PACKAGES:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    USER: "azureuser"
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: "yes"
+        force_apt_get: "yes"
+
+    - name: Install packages for Docker
+      apt:
+        name: "{{DOCKER_PACKAGES}}"
+        state: present
+        force_apt_get: "yes"
+
+    - name: Add docker gpg key
+      apt_key: 
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Save ubuntu release version
+      shell: lsb_release -cs
+      register: ubuntu_version
+
+    - name: Add Docker Repository
+      apt_repository: 
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+        state: present
+
+    - name: Update apt-get pakages
+      apt:
+        update_cache: "yes"
+        force_apt_get: "yes"
+
+    - name: Install Docker
+      apt:
+        name: "docker-ce"
+        state: present
+        force_apt_get: "yes"
+
+    - name: Create docker group
+      group:
+        name: "docker"
+        state: present
+
+    - name: Add $user to docker group
+      user:
+        name: "{{USER}}"
+        group: "docker"
+        append: "yes"
+
+    - name: Test docker with hello world
+      shell: "docker run hello-world"
+      register: hello_world_output
+
+    - name: Show console op for hello world
+      debug:
+        msg: "Container op: {{hello_world_output.stdout}}"
+
+    - name: Reboot azure vm
+      shell: "sleep 1 && reboot"
+      async: 1
+      poll: 0

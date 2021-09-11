@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-worker
+  labels:
+    app: java-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-worker
+  template:
+    metadata:
+      labels:
+        app: java-worker
+    spec:
+      containers:
+      - name: java-worker
+        image: vasanth12/worker-app:latest
+        imagePullPolicy: IfNotPresent
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-worker-service
+spec:
+  selector:
+    app: java-worker
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
