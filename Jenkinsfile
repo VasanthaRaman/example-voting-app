@@ -13,7 +13,7 @@ pipeline{
 		}
 		stage('Copy built docker images'){
 			steps{
-				sh 'savImgTar.sh'
+				sh 'saveImgTar.sh'
 			}
 		}
 		stage('Download and install docker'){
