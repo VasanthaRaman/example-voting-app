@@ -16,9 +16,9 @@ pipeline{
 				sh './savImgTar.sh'
 			}
 		}
-		stage('Download minikube and kubectl packages'){
+		stage('Download and install docker'){
 			steps{
-				sh 'ansible-playbook docker-compose.yml -i hosts'
+				sh 'ansible-playbook install-docker.yml -i hosts'
 			}
 		}	
 		stage('Download minikube and kubectl packages'){
