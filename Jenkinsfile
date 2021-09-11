@@ -16,6 +16,11 @@ pipeline{
 				sh '/home/vasanth/projectFinal/example-voting-app/saveImgTar.sh'
 			}
 		}
+		stage('check hosts'){
+			steps{
+				sh 'ansible azure -m ping -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+			}
+		}
 		stage('Download and install docker'){
 			steps{
 				sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
