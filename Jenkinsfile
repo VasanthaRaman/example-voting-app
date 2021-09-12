@@ -1,5 +1,9 @@
 pipeline{
 	agent any
+	    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "mavenn"
+    }
 	stages{
 		stage('Git checkout'){
 			steps{
@@ -8,7 +12,6 @@ pipeline{
 		}
 		 stage('SonarQube Analysis') {
 		 	steps{
-   			 def mvn = tool 'mavenn';
    			 dir('worker'){
    				 withSonarQubeEnv() {
 			      sh "${mvn}/bin/mvn sonar:sonar"
