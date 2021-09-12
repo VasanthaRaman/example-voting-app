@@ -23,7 +23,8 @@ pipeline{
 		}
 		stage('Download and install docker'){
 			steps{
-				sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+				//sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+				ansiblePlaybook credentialsId: 'privkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
 			}
 		}	
 		stage('Download minikube and kubectl packages'){
