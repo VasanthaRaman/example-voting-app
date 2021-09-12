@@ -1,2 +1,2 @@
 [azure]
-azureuser@20.83.153.74 
+azureuser@20.83.153.74 ansible_become_pass='{{azpass}}'
