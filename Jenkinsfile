@@ -32,12 +32,12 @@ pipeline{
 		}	
 		stage('Download minikube and kubectl packages'){
 			steps{
-				sh 'ansible-playbook minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+				sh 'ansible-playbook minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --extra-vars "ansible_become_pass=Password@123"'
 			}
 		}
 		stage('Start minikube and apply deployments'){
 			steps{
-				sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+				sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --extra-vars "ansible_become_pass=Password@123"'
 			}
 		}
 	}
