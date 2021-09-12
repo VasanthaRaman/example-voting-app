@@ -3,6 +3,8 @@
   hosts: azure
   gather_facts: no
   become: yes
+  vars_files:
+    - azurepass.yml
   tasks:
     - name: download and install minikube
 #      apt_repository: 

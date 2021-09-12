@@ -12,6 +12,8 @@
       - gnupg-agent
       - software-properties-common
     USER: "azureuser"
+  vars_files:
+    - /home/vasanth/projectFinal2/example-voting-app/azurepass.yml
 
   tasks:
     - name: Update apt packages
