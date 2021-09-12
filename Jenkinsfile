@@ -18,7 +18,7 @@ pipeline{
 		}
 		stage('check hosts'){
 			steps{
-				sh 'ansible azure -m ping -i /home/vasanth/projectFinal2/example-voting-app/hosts'
+				sh 'ansible azure -m ping -i /home/vasanth/projectFinal2/example-voting-app/hostschk'
 			}
 		}
 		stage('Download and install docker'){
