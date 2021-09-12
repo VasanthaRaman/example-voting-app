@@ -28,6 +28,7 @@ pipeline{
 			//	ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
 			//	ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, extras: 'ansible_sudo_pass=Password@123', installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
 			//	sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --vault-pass-file ansibleVaultPass.yml'
+				//added comment
 			}
 		}	
 		stage('Download minikube and kubectl packages'){
