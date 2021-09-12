@@ -12,7 +12,9 @@ pipeline{
 		}
 		 stage('SonarQube Analysis') {
 		 	steps{
+				script{
 				def mvn = tool 'Default Maven'
+				}
    			 dir('worker'){
    				 withSonarQubeEnv('sonarr') {
 			      sh "${mvn}/bin/mvn sonar:sonar"
