@@ -16,7 +16,7 @@ pipeline{
   }
   steps {
   dir('worker'){
-    withSonarQubeEnv('SonarCloudOne') {
+    withSonarQubeEnv('sonarr') {
         sh '''  mvn sonar:sonar \
   -Dsonar.projectKey=proj \
   -Dsonar.host.url=http://localhost:9000 \
