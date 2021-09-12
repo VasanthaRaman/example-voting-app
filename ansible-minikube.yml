@@ -2,7 +2,7 @@
 - name: Running minikube
   hosts: azure
   vars_files:
-    - /home/vasanth/projectFinal2/example-voting-app/azurepass.yml
+    - azurepass.yml
   pre_tasks:
     
     - name: Check Minikube's status
