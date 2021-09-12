@@ -69,7 +69,7 @@
       debug:
         msg: "Container op: {{hello_world_output.stdout}}"
 
-    - name: Reboot azure vm
-      shell: "sleep 1 && reboot"
-      async: 1
-      poll: 0
+  #  - name: Reboot azure vm
+  #    shell: "sleep 1 && reboot"
+  #    async: 1
+  #    poll: 0
