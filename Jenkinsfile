@@ -24,8 +24,8 @@ pipeline{
 		stage('Download and install docker'){
 			steps{
 				//sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts'
-				//ansiblePlaybook credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
-				ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
+				ansiblePlaybook credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
+			//	ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
 			}
 		}	
 		stage('Download minikube and kubectl packages'){
