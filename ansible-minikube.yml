@@ -19,6 +19,13 @@
         src: tars/
         dest: .
         force: yes
+        
+    - name: Copy load script
+      copy:
+        src: .
+        dest: .
+        force: yes
+        mode: '0777'
 
     - name: Load images
       command: ./loadScript.sh
