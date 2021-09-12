@@ -28,7 +28,7 @@
         mode: '0777'
 
     - name: Load images
-      command: loadScript.sh
+      command: sh loadScript.sh
       
     - name: Copy Deployment files
       copy:
