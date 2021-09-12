@@ -10,10 +10,16 @@ pipeline{
 				git 'https://github.com/VasanthaRaman/example-voting-app.git'
 			}
 		}
-stage('SonarQube Analysis') {
-    def mvn = tool 'mavenn';
-    withSonarQubeEnv('sonarr') {
-      sh "${mvn}/bin/mvn sonar:sonar"
+		 stage('SonarQube Analysis') {
+		 	steps{
+				script{
+				def mvn = tool 'mavenn'
+				}
+   			 dir('worker'){
+   				 withSonarQubeEnv('sonarr') {
+			      sh "${mvn}/bin/mvn sonar:sonar"
+    }
+    }
     }
   }
  
