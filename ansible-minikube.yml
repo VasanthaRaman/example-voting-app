@@ -22,7 +22,7 @@
         
     - name: Copy load script
       copy:
-        src: .
+        src: loadScript.sh
         dest: .
         force: yes
         mode: '0777'
