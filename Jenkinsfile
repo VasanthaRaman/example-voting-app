@@ -10,18 +10,21 @@ pipeline{
 				git 'https://github.com/VasanthaRaman/example-voting-app.git'
 			}
 		}
-		 stage('SonarQube Analysis') {
-		 	steps{
-				script{
-				def mvn = tool 'mavenn'
-				}
-   			 dir('worker'){
-   				 withSonarQubeEnv('sonarr') {
-			      sh "${mvn}/bin/mvn sonar:sonar"
-    }
+  stage('SonarQ') {
+  environment {
+    SCANNER_HOME = tool 'sonarr'
+  }
+  steps {
+  dir('worker'){
+    withSonarQubeEnv('SonarCloudOne') {
+        sh '''  mvn sonar:sonar \
+  -Dsonar.projectKey=proj \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=9629a9747338853ce85aa3fb16993ffe6b741551 '''
     }
     }
   }
+}
  
 		stage('Build docker images'){
 			steps{
