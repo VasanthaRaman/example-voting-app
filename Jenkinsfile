@@ -16,7 +16,7 @@ stage('SonarQube Analysis') {
       sh "${mvn}/bin/mvn sonar:sonar"
     }
   }
-  }
+ 
 		stage('Build docker images'){
 			steps{
 				sh 'docker-compose build'
