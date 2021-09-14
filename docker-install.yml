@@ -70,7 +70,9 @@
     - name: Show console op for hello world
       debug:
         msg: "Container op: {{hello_world_output.stdout}}"
-
+        
+    - name: reboot
+      reboot:
   #  - name: Reboot azure vm
   #    shell: "sleep 1 && reboot"
   #    async: 1
