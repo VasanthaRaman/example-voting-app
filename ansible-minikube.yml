@@ -15,6 +15,11 @@
       command: minikube start
       when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
       
+    - name: Delete prev vote img
+      file:
+        path: vote-app.tar
+        state: absent
+    
     - name: Copy image tars
       copy:
         src: tars/
