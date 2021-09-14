@@ -17,10 +17,12 @@ pipeline{
   steps {
   dir('worker'){
     withSonarQubeEnv('sonarr') {
-        sh '''  mvn sonar:sonar \
-  -Dsonar.projectKey=proj \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=9629a9747338853ce85aa3fb16993ffe6b741551 '''
+ //       sh '''  mvn sonar:sonar \
+ // -Dsonar.projectKey=proj \
+ // -Dsonar.host.url=http://localhost:9000 \
+ // -Dsonar.login=9629a9747338853ce85aa3fb16993ffe6b741551 '''
+ 
+  sh "${scannerHome}/bin/sonar-scanner"
     }
     }
   }
