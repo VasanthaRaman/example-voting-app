@@ -52,21 +52,21 @@ pipeline{
 			//	ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, extras: 'ansible_sudo_pass=Password@123', installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml'
 			//	sh 'ansible-playbook docker-install.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --vault-pass-file ansibleVaultPass.yml'
 				//added comment
-				ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hostsNew', playbook: 'docker-install.yml', vaultCredentialsId: 'ansVault'
+				ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'docker-install.yml', vaultCredentialsId: 'ansVault'
 			}
 		}	
 		stage('Download minikube and kubectl packages'){
 			steps{
 				//sh 'ansible-playbook minikube.yml -i /home/vasanth/projectFinal3/example-voting-app/hosts --extra-vars "ansible_become_pass=Password@123"'
 			//	sh 'ansible-playbook minikube.yml -i /home/vasanth/projectFinal3/example-voting-app/hosts --vault-password-file /home/vasanth/projectFinal3/example-voting-app/ansibleVaultPass.yml'
-			ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hostsNew', playbook: 'minikube.yml', vaultCredentialsId: 'ansVault'
+			ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'minikube.yml', vaultCredentialsId: 'ansVault'
 			}
 		}
 		stage('Start minikube and apply deployments'){
 			steps{
 				//sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --extra-vars "ansible_become_pass=Password@123"'
 			//	sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal3/example-voting-app/hosts --vault-password-file /home/vasanth/projectFinal3/example-voting-app/ansibleVaultPass.yml'
-			ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hostsNew', playbook: 'ansible-minikube.yml', vaultCredentialsId: 'ansVault'
+			ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'ansible-minikube.yml', vaultCredentialsId: 'ansVault'
 			}
 		}
 	}
