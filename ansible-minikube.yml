@@ -72,8 +72,6 @@
         msg: "{{depl_output4.stdout}}"
         
       
-
-      
     - name: Deploying Worker App
       command: kubectl apply -f worker-app-deployment.yml
       register: depl_output5
