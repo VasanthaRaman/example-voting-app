@@ -28,7 +28,7 @@ pipeline{
  
 		stage('Build docker images'){
 			steps{
-				sh 'docker-compose build --no-cache'
+				sh 'docker-compose build'
 			}
 		}
 		stage('Copy built docker images'){
