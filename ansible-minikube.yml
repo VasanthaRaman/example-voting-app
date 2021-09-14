@@ -54,8 +54,8 @@
       
     - name: Print return information from the previous task
       debug:
-        var: result
-        verbosity: 2
+        var: depl_output3
+        verbosity: 3
       
     - name: Deploying Node result App
       command: kubectl apply -f result-app-deployment.yml
