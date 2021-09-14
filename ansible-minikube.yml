@@ -59,13 +59,19 @@
       
     - name: Print return information from the previous task
       debug:
-        var: depl_output3
-        verbosity: 3
+        msg: "{{depl_output3.stdout}}"
+        
       
     - name: Deploying Node result App
       command: kubectl apply -f result-app-deployment.yml
       register: depl_output4
-      changed_when: " 'unchanged' not in depl_output4.stdout"
+      
+      
+    - name: Print return information from the previous task
+      debug:
+        msg: "{{depl_output4.stdout}}"
+        
+      
 
       
     - name: Deploying Worker App
