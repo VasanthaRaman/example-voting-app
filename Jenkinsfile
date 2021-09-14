@@ -65,8 +65,8 @@ pipeline{
 		stage('Start minikube and apply deployments'){
 			steps{
 				//sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal2/example-voting-app/hosts --extra-vars "ansible_become_pass=Password@123"'
-				sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal3/example-voting-app/hosts --vault-password-file /home/vasanth/projectFinal3/example-voting-app/ansibleVaultPass.yml'
-		//	ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'ansible-minikube.yml', vaultCredentialsId: 'ansVault'
+			//	sh 'ansible-playbook ansible-minikube.yml -i /home/vasanth/projectFinal3/example-voting-app/hosts --vault-password-file /home/vasanth/projectFinal3/example-voting-app/ansibleVaultPass.yml'
+			ansiblePlaybook become: true, credentialsId: 'azureprivkey', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'hosts', playbook: 'ansible-minikube.yml', vaultCredentialsId: 'ansVault'
 			}
 		}
 	}
