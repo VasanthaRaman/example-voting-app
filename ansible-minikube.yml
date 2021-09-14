@@ -12,7 +12,7 @@
       ignore_errors: true
     
     - name: Start Minikube if required
-      command: minikube start --driver=none
+      command: minikube start
       when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
       
     - name: Copy image tars
