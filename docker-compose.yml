@@ -21,7 +21,7 @@ services:
     network_mode: bridge
     restart: always
     container_name: pythonFlask
-    image: vasanth12/vote-app
+    image: vasanth-vote-app
     build:
       context: vote/
       dockerfile: Dockerfile
@@ -31,7 +31,7 @@ services:
     network_mode: bridge
     restart: always
     container_name: nodeJS
-    image: vasanth12/node-app
+    image: vasanth-node-app
     build:
       context: result/
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
     network_mode: bridge
     restart: always
     container_name: worker
-    image: vasanth12/worker-app
+    image: vasanth-worker-app
     build:
       context: worker/
       dockerfile: Dockerfile

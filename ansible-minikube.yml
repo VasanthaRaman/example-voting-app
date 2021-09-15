@@ -14,11 +14,24 @@
     - name: Start Minikube if required
       command: minikube start
       when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
-      
-    - name: Delete prev vote img
+
+        
+    - name: delete load vote tar
       file:
         path: vote-app.tar
         state: absent
+        
+        
+    - name: delete load node tar
+      file:
+        path: node-app.tar
+        state: absent
+        
+    - name: delete load wokrker tar
+      file:
+        path: worker-app.tar
+        state: absent    
+    
     
     - name: Copy image tars
       copy:
@@ -26,16 +39,47 @@
         dest: .
         force: yes
         
+    - name: delete load
+      file:
+        path: loadScript.sh
+        state: absent
+        
     - name: Copy load script
       copy:
         src: loadScript.sh
         dest: .
         force: yes
         mode: '0777'
+        
+    - name: delete old img
+      shell: "docker rmi -f vasanth-vote-app"
+      register: pop
+      
+      
+    - name: Print return information from the previous task
+      debug:
+        msg: "{{pop.stdout}}"
+    
+    - name: delete old img
+      shell: "docker rmi -f vasanth-node-app"
+      register: pop   
 
+    - name: delete old img
+      shell: "docker rmi -f vasanth-worker-app"
+      register: pop   
+      
+    - name: Changing environment
+      shell: "eval $(minikube docker-env)"
+      
     - name: Load images
       command: sh loadScript.sh
+      register: op
       
+    - name: Print return information from the previous task
+      debug:
+        msg: "{{op.stdout}}"
+      
+
     - name: Copy Deployment files
       copy:
         src: kubeDepFiles/
@@ -52,7 +96,7 @@
       register: depl_output2
       changed_when: " 'unchanged' not in depl_output2.stdout"
 
-
+      
     - name: Deploying Python App  
       command: kubectl apply -f vote-app-deployment.yml
       register: depl_output3

@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: vote
-          image: vasanth12/vote-app:latest
-          imagePullPolicy: IfNotPresent
+          image: vasanth-vote-app
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
 

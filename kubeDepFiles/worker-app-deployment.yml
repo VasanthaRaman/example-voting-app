@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: java-worker
-        image: vasanth12/worker-app:latest
-        imagePullPolicy: IfNotPresent
+        image: vasanth-worker-app
+        imagePullPolicy: Never
 
 ---
 apiVersion: v1
