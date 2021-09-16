@@ -1,3 +1,4 @@
+#!/bin/sh
 [ -d "tars" ] && rm -rf tars 
 mkdir tars
 cp loadScript.sh tars/loadScript.sh
