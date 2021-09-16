@@ -38,6 +38,7 @@
         src: tars/
         dest: .
         force: yes
+        mode:0666
         
     - name: delete load
       file:
