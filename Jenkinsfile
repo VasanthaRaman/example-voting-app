@@ -33,7 +33,7 @@ pipeline{
 		}
 		stage('Copy built docker images'){
 			steps{
-				sh '/home/vasanth/projectFinal/example-voting-app/saveImgTar.sh'
+				sh './saveImgTar.sh'
 			}
 		}
 		stage('check hosts'){
