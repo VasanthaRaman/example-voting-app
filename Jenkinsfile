@@ -33,7 +33,7 @@ pipeline{
 		}
 		stage('Copy built docker images'){
 			steps{
-				pwd
+		
 				sh 'pwd'
 				sh 'ls'
 				sh './saveImgTar.sh'
